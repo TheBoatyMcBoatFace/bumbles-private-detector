@@ -20,6 +20,7 @@ RUN pip install --trusted-host pypi.python.org -r requirements_cpu.txt
 
 # Define environment variable
 ENV MODEL_PATH /app/saved_model/
+ENV PYTHONPATH /app
 
 # Download the pretrained model
 RUN mkdir -p /app/saved_model && \
