@@ -1,0 +1,11 @@
+# .dockerignore file
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.cache
+*.log
+*.md
+.idea/
+.vscode/
+.git/
