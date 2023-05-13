@@ -1,13 +1,10 @@
 import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from flask import Flask, request, Response
 from PIL import Image
 import numpy as np
 import tensorflow as tf
 import io
-from private_detector.utils.bee_logger import make_logger
+from utils.bee_logger import make_logger
 
 app = Flask(__name__)
 

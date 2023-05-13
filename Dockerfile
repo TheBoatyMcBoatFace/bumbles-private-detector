@@ -4,8 +4,15 @@ FROM python:3.8-slim
 # Set the working directory to /app
 WORKDIR /app
 
+
+# Copy the requirements file into the container
+COPY requirements_cpu.txt /app
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements_cpu.txt
+
 # Copy the current directory contents into the container at /app
-COPY app /app
+COPY src /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -15,13 +22,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Install cpu requirements
-RUN pip install --trusted-host pypi.python.org -r requirements_cpu.txt
-
 # Define environment variable
 ENV MODEL_PATH /app/saved_model/
-ENV PYTHONPATH /app
-
 
 # Download the pretrained model
 RUN mkdir -p /app/saved_model && \
@@ -31,7 +33,6 @@ RUN mkdir -p /app/saved_model && \
     rm -r /app/private_detector /app/private_detector.zip
 
 # Set some defaults
-
 ENV EMOJI true
 ENV LOG_PRETTY true
 ENV LOG_PATH '/logs'
