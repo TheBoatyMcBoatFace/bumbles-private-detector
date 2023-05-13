@@ -31,7 +31,7 @@ RUN mkdir -p /app/saved_model && \
 
 ENV EMOJI true
 ENV LOG_PRETTY true
-# ENV LOG_PATH
+ENV LOG_PATH '/logs'
 ENV LOG_LEVEL INFO
 ENV APP_PORT 8080
 

@@ -11,7 +11,7 @@ app = Flask(__name__)
 logger = make_logger("api")  # Create logger instance
 
 # Load the pre-trained model
-model = tf.keras.models.load_model("saved_model/")
+model = tf.keras.models.load_model(os.environ["MODEL_PATH"])
 
 # Check for the EMOJI environment variable
 use_emoji = os.environ.get("EMOJI", "False").lower() == "true"
