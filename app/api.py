@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
 import tensorflow as tf
 import io
-from private_detector.utils.bee_logger import make_logger  # Import bee_logger
+from .private_detector.utils.bee_logger import make_logger
 
 app = Flask(__name__)
 

@@ -8,9 +8,9 @@ from typing import List
 import tensorflow as tf
 from absl import logging as absl_logging
 
-from private_detector.image_dataset import ImageDataset
-from private_detector.private_detector import PrivateDetector
-from private_detector.utils.logger import make_logger
+from .private_detector.image_dataset import ImageDataset
+from .private_detector.private_detector import PrivateDetector
+from .private_detector.utils.logger import make_logger
 
 
 def train(train_id: str,

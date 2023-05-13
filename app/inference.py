@@ -4,7 +4,7 @@ from typing import List
 import tensorflow as tf
 from absl import logging as absl_logging
 
-from private_detector.utils.preprocess import preprocess_for_evaluation
+from .private_detector.utils.preprocess import preprocess_for_evaluation
 
 
 def read_image(filename: str) -> tf.Tensor:
