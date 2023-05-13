@@ -1,5 +1,4 @@
 .DS_Store
 __pycache__/
-saved_model/
-saved_checkpoint/
-
+app/saved_*
+app/saved_*

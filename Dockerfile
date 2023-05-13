@@ -5,7 +5,7 @@ FROM python:3.8-slim
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-COPY . /app
+COPY app /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -20,7 +20,6 @@ RUN pip install --trusted-host pypi.python.org -r requirements_cpu.txt
 
 # Define environment variable
 ENV MODEL_PATH /app/saved_model/
-ENV PYTHONPATH /app
 
 # Download the pretrained model
 RUN mkdir -p /app/saved_model && \
