@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, Response
 from PIL import Image
 import numpy as np
 import tensorflow as tf
@@ -9,12 +9,16 @@ from private_detector.utils.bee_logger import make_logger  # Import bee_logger
 app = Flask(__name__)
 
 logger = make_logger("api")  # Create logger instance
+logger.debug("Logger initialized")
 
 # Load the pre-trained model
+logger.debug(f"Loading model from {os.environ['MODEL_PATH']}")
 model = tf.keras.models.load_model(os.environ["MODEL_PATH"])
+logger.info("Model loaded successfully")
 
 # Check for the EMOJI environment variable
 use_emoji = os.environ.get("EMOJI", "False").lower() == "true"
+logger.debug(f"EMOJI setting: {use_emoji}")
 
 
 def get_emoji(prediction):
@@ -41,6 +45,7 @@ def submit_image():
         image = image.resize((480, 480))
         image_array = np.array(image) / 255.0
         image_batch = np.expand_dims(image_array, axis=0)
+        logger.debug("Image processed successfully")
     except Exception as e:
         # Error processing image
         logger.error(f"Error processing the image: {str(e)}")
@@ -62,6 +67,20 @@ def submit_image():
     return response
 
 
+@app.route("/health")
+def get_health():
+    logger.info("Health Check Requested 🐝👩‍⚕️")
+    if model is not None:
+        # Return an HTTP 200 status to indicate a healthy service
+        message = "It's a Match! 🐝🌼 Let's check out some 🍆 🖼️..."
+        return Response(message, status=200)
+    else:
+        # Return an HTTP 503 status to indicate a service unavailable
+        message = "The BEEpi is currently unavailable 🐝💔... Please try again later."
+        return Response(message, status=503)
+
+
 if __name__ == "__main__":
     app_port = int(os.environ.get("APP_PORT", 8080))
+    logger.debug(f"Starting the application on port {app_port}")
     app.run(host="0.0.0.0", port=app_port)
