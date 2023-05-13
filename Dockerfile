@@ -25,7 +25,8 @@ ENV MODEL_PATH /app/saved_model/
 RUN mkdir -p /app/saved_model && \
     curl -o /app/private_detector.zip https://storage.googleapis.com/private_detector/private_detector.zip && \
     unzip /app/private_detector.zip -d /app/ && \
-    rm /app/private_detector.zip
+    mv /app/private_detector/saved_model/* /app/saved_model/ && \
+    rm -r /app/private_detector /app/private_detector.zip
 
 # Set some defaults
 
